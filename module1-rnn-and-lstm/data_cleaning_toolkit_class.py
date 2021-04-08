@@ -12,7 +12,7 @@ class data_cleaning_toolkit(object):
         
         self.sequences = None
         self.next_char = None
-        self.chars = None
+        self.unique_chars = None
         self.maxlen = None
     
     def clean_data(self, doc):
@@ -48,7 +48,7 @@ class data_cleaning_toolkit(object):
         # apply case normalization 
         return doc.lower()   
     
-    def create_char_sequenes(self, data, maxlen = 20, step = 5):
+    def create_char_sequences(self, data, maxlen = 20, step = 5):
         """
         Creates numerically encoded text sequences for model input and encoded chars 
         for what the model should predict next. 
@@ -128,7 +128,7 @@ class data_cleaning_toolkit(object):
         
         self.sequences = sequences
         self.next_char = next_char
-        self.chars = chars
+        self.unique_chars = chars
 
 
     def create_X_and_Y(self):
@@ -148,11 +148,11 @@ class data_cleaning_toolkit(object):
         n_seqs = len(self.sequences)
         
         # this is the number of features in the doc-term matrix that we are about to create 
-        n_unique_chars = len(self.chars) 
+        n_unique_chars = len(self.unique_chars) 
         
         # Create shape for x and y 
-        x_dims = (len(self.sequences), self.maxlen, len(self.chars))
-        y_dims = (len(self.sequences),len(self.chars))
+        x_dims = (len(self.sequences), self.maxlen, len(self.unique_chars))
+        y_dims = (len(self.sequences),len(self.unique_chars))
 
         # create data containers for x and y 
         # default values will all be zero ( i.e. look up docs for np.zeros() )
